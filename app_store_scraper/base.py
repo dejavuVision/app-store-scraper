@@ -34,7 +34,7 @@ class Base:
         app_id=None,
         log_format="%(asctime)s [%(levelname)s] %(name)s - %(message)s",
         log_level="INFO",
-        log_interval=5,
+        log_interval=15,
     ):
         logging.basicConfig(format=log_format, level=log_level.upper())
         self._base_landing_url = f"{self._scheme}://{self._landing_host}"
@@ -110,8 +110,8 @@ class Base:
         url,
         headers=None,
         params=None,
-        total=3,
-        backoff_factor=3,
+        total=10,
+        backoff_factor=8,
         status_forcelist=[404, 429],
     ) -> requests.Response:
         retries = Retry(
@@ -175,7 +175,7 @@ class Base:
         app_id = re.search(pattern, self._response.text).group(1)
         return app_id
 
-    def review(self, how_many=sys.maxsize, after=None, sleep=None):
+    def review(self, how_many=sys.maxsize, after=None, sleep=10):
         self._log_timer = 0
         if after and not isinstance(after, datetime):
             raise SystemExit("`after` must be a datetime object.")
