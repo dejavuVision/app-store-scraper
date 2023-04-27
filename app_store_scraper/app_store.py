@@ -18,7 +18,7 @@ class AppStore(Base):
         app_id=None,
         log_format="%(asctime)s [%(levelname)s] %(name)s - %(message)s",
         log_level="INFO",
-        log_interval=5,
+        log_interval=15,
     ):
         super().__init__(
             country=country,
